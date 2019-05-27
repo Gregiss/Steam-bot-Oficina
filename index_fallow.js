@@ -105,11 +105,11 @@ function steamLogin() {
 		console.log("Aguarde um momento :)");
 		console.log("Logado com o usuario " + accountParse.steam_credentials.accountName);
         var formdata = {
-            steamid: 76561198090634582,
+            steamid: 0,
             sessionid: sessionID
         }
         setTimeout(function() {
-            community.httpRequestPost("https://steamcommunity.com/id/luizf34/followuser", {
+            community.httpRequestPost("https://steamcommunity.com/id/username/followuser", {
                 formData: formdata,
                 followAllRedirects: true
             }, function(error, response, data) {
