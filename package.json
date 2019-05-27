@@ -2,9 +2,9 @@
     "name": "steam-workshop-subscriber",
     "description": "Subscribe to an entire workshop collection. Run install.bat and edit config.json before running run.bat.",
     "version": "1.0.0",
-    "author": "Royalgamer06",
-    "homepage": "https://royalgamer06.ga",
-    "url": "https://github.com/Royalgamer06/steam-workshop-subscriber",
+    "author": "kaway404",
+    "homepage": "",
+    "url": "https://github.com/thekaway404/Steam-bot-Oficina",
     "license": "MIT",
     "main": "index.js",
     "dependencies": {
