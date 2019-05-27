@@ -60,21 +60,26 @@ if (config.winauth_usage) {
     steamLogin();
 }
 
-var qtsContas = config.user_all_accounts;
+
+var done = 0;
+
+function steamLogin() {
+
+var qtsContas = account.length;
 
 if(config.user_all_accounts == 0){
-    qtsContas = config.accounts.length;
+    qtsContas = account.length;
 } else {
-    if(qtsContas > config.accounts.length){
-        console.log("Voce está usando um numero invalido, mudamos para a quantidade de contas " + config.accounts.length );
-        qtsContas = config.accounts.length;
+    if(qtsContas > account.length){
+        console.log("Voce está usando um numero invalido, mudamos para a quantidade de contas " + account.length );
+        qtsContas = account.length;
+    } else{
+        qtsContas = config.user_all_accounts;
     }
 }
 
-console.log("Você está usando " + qtsContas);
+console.log("Você está usando " + qtsContas + " contas");
 
-var done = 0;
-function steamLogin() {
     if(indice <= qtsContas){
     	accountParse = {
 	    "steam_credentials": {
@@ -97,7 +102,7 @@ function steamLogin() {
 			if (err.message == 'SteamGuard') {
 				console.log("An email has been sent to your address at " + err.emaildomain);
 				rl.question("Steam Guard Code: ", function(code) {
-                    config.steam_credentials.authCode = code;
+                    accountParse.steam_credentials.authCode = code;
                     indice++;
 					steamLogin();
 				});
@@ -106,7 +111,7 @@ function steamLogin() {
 			if (err.message == 'CAPTCHA') {
 				console.log(err.captchaurl);
 				rl.question("CAPTCHA: ", function(captchaInput) {
-					config.steam_credentials.captcha = captchaInput;
+					accountParse.steam_credentials.captcha = captchaInput;
                     steamLogin();
 				});
 				return;
@@ -122,7 +127,7 @@ function steamLogin() {
             sessionid: sessionID
         }
         setTimeout(function() {
-            community.httpRequestPost("https://steamcommunity.com/id/luizf34/followuser", {
+            community.httpRequestPost("https://steamcommunity.com/id" + config.fallow_steam_iduser +"/followuser", {
                 formData: formdata,
                 followAllRedirects: true
             }, function(error, response, data) {
@@ -130,14 +135,14 @@ function steamLogin() {
                     console.log(error);
                 }
                 done++;
-                console.log("Voce seguiu luizf34 " + done + "/" + config.accounts.length);
+                console.log("Voce seguiu " + config.fallow_steam_iduser + " " + done + "/" + qtsContas);
                 if (done >= qtsContas) {
-                    console.log("ALL DONE!")
+                    console.log("Tudo pronto!")
                 } else{
                     steamLogin();
                 }
             });
-        }, 400);
+        }, config.delay);
         indice++;
                 
     });

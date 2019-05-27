@@ -75,6 +75,14 @@ console.log("Você está usando " + qtsContas);
 
 var done = 0;
 function steamLogin() {
+var qtsContas = config.user_all_accounts;
+if(config.user_all_accounts == 0){
+	qtsContas = config.accounts.length;
+} 
+if(qtsContas > config.accounts.length){
+		qtsContas = config.accounts.length;
+}
+
     if(indice <= qtsContas){
     	accountParse = {
 	    "steam_credentials": {
@@ -97,7 +105,7 @@ function steamLogin() {
 			if (err.message == 'SteamGuard') {
 				console.log("An email has been sent to your address at " + err.emaildomain);
 				rl.question("Steam Guard Code: ", function(code) {
-                    config.steam_credentials.authCode = code;
+                    accountParse_credentials.authCode = code;
                     indice++;
 					steamLogin();
 				});
@@ -106,7 +114,7 @@ function steamLogin() {
 			if (err.message == 'CAPTCHA') {
 				console.log(err.captchaurl);
 				rl.question("CAPTCHA: ", function(captchaInput) {
-					config.steam_credentials.captcha = captchaInput;
+					accountParse.steam_credentials.captcha = captchaInput;
                     steamLogin();
 				});
 				return;
@@ -131,14 +139,14 @@ function steamLogin() {
                     console.log(error);
                 }
                 done++;
-                console.log("Se inscreveu em " + done + "/" + config.accounts.length);
+                console.log("Se inscreveu em " + done + "/" + qtsContas);
                 if (done >= qtsContas) {
                     console.log("Tudo pronto!")
                 } else{
                     steamLogin();
                 }
             });
-        }, 400);
+        }, config.delay);
         indice++;
                 
     });
