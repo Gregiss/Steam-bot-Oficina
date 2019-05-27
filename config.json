@@ -5,7 +5,9 @@
         "shared_secret": "IF_USAGE_YOUR_WINAUTH_SHARED_SECRET",
         "identity_secret": "IF_USAGE_YOUR_WINAUTH_IDENTITY_SECRET"
     },
-    "appid": 0,
-    "filters": "&browsesort=mostrecent&section=readytouseitems&actualsort=mostrecent",
-    "delay": 0
+    "delay": 0,
+    "fallow_steam_iduser": 0,
+    "workshopid": 0,
+    "workshop_idgame": 730,
+    "user_all_accounts" : 0
 }

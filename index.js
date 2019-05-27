@@ -6,6 +6,7 @@ const rl = ReadLine.createInterface({
 	"input": process.stdin,
 	"output": process.stdout
 });
+
 const config = JSON.parse(fs.readFileSync("config.json"));
 
 const colors = {
@@ -60,9 +61,21 @@ if (config.winauth_usage) {
     steamLogin();
 }
 
+var qtsContas = config.user_all_accounts;
+
+if(config.user_all_accounts == 0){
+	qtsContas = config.accounts.length;
+} 
+if(qtsContas > config.accounts.length){
+		console.log("Voce está usando um numero invalido, mudamos para a quantidade de contas " + config.accounts.length );
+		qtsContas = config.accounts.length;
+}
+
+console.log("Você está usando " + qtsContas);
+
 var done = 0;
 function steamLogin() {
-    if(indice <= config.accounts.length){
+    if(indice <= qtsContas){
     	accountParse = {
 	    "steam_credentials": {
 	        "accountName": account[indice].accountName,
@@ -105,8 +118,8 @@ function steamLogin() {
 		console.log("Aguarde um momento :)");
 		console.log("Logado com o usuario " + accountParse.steam_credentials.accountName);
         var formdata = {
-            id: 1619092668,
-            appid: 730,
+            id: config.workshopid,
+            appid: config.workshop_idgame,
             sessionid: sessionID
         }
         setTimeout(function() {
@@ -118,9 +131,9 @@ function steamLogin() {
                     console.log(error);
                 }
                 done++;
-                console.log("Subscribed to " + done + "/" + config.accounts.length);
-                if (done >= config.accounts.length) {
-                    console.log("ALL DONE!")
+                console.log("Se inscreveu em " + done + "/" + config.accounts.length);
+                if (done >= qtsContas) {
+                    console.log("Tudo pronto!")
                 } else{
                     steamLogin();
                 }

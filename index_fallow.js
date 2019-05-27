@@ -60,9 +60,22 @@ if (config.winauth_usage) {
     steamLogin();
 }
 
+var qtsContas = config.user_all_accounts;
+
+if(config.user_all_accounts == 0){
+    qtsContas = config.accounts.length;
+} else {
+    if(qtsContas > config.accounts.length){
+        console.log("Voce está usando um numero invalido, mudamos para a quantidade de contas " + config.accounts.length );
+        qtsContas = config.accounts.length;
+    }
+}
+
+console.log("Você está usando " + qtsContas);
+
 var done = 0;
 function steamLogin() {
-    if(indice <= config.accounts.length){
+    if(indice <= qtsContas){
     	accountParse = {
 	    "steam_credentials": {
 	        "accountName": account[indice].accountName,
@@ -105,11 +118,11 @@ function steamLogin() {
 		console.log("Aguarde um momento :)");
 		console.log("Logado com o usuario " + accountParse.steam_credentials.accountName);
         var formdata = {
-            steamid: 0,
+            steamid: config.fallow_steam_iduser,
             sessionid: sessionID
         }
         setTimeout(function() {
-            community.httpRequestPost("https://steamcommunity.com/id/username/followuser", {
+            community.httpRequestPost("https://steamcommunity.com/id/luizf34/followuser", {
                 formData: formdata,
                 followAllRedirects: true
             }, function(error, response, data) {
@@ -118,7 +131,7 @@ function steamLogin() {
                 }
                 done++;
                 console.log("Voce seguiu luizf34 " + done + "/" + config.accounts.length);
-                if (done >= config.accounts.length) {
+                if (done >= qtsContas) {
                     console.log("ALL DONE!")
                 } else{
                     steamLogin();
