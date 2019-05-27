@@ -1,8 +1,4 @@
 {
-    "steam_credentials": {
-        "accountName": "FlashyEasyCheetah",
-        "password": "Swiftlyanomalousattested"
-    },
     "winauth_usage": false,
     "winauth_data": {
         "deviceid": "IF_USAGE_YOUR_WINAUTH_DEVICE_ID",
