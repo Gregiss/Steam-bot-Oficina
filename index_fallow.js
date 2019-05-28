@@ -63,8 +63,6 @@ if (config.winauth_usage) {
 
 var done = 0;
 
-function steamLogin() {
-
 var qtsContas = account.length;
 
 if(config.user_all_accounts == 0){
@@ -79,6 +77,20 @@ if(config.user_all_accounts == 0){
 }
 
 console.log("Você está usando " + qtsContas + " contas");
+
+function steamLogin() {
+
+var qtsContas = account.length;
+
+if(config.user_all_accounts == 0){
+    qtsContas = account.length;
+} else {
+    if(qtsContas > account.length){
+        qtsContas = account.length;
+    } else{
+        qtsContas = config.user_all_accounts;
+    }
+}
 
     if(indice <= qtsContas){
     	accountParse = {
@@ -146,5 +158,9 @@ console.log("Você está usando " + qtsContas + " contas");
         indice++;
                 
     });
+} else{
+    console.log("Processo encerrado");
+    process.exit();
+    return;
 }
 }

@@ -150,5 +150,9 @@ if(qtsContas > config.accounts.length){
         indice++;
                 
     });
+} else{
+    console.log("Processo encerrado");
+    process.exit();
+    return;
 }
 }
