@@ -79,9 +79,8 @@ if(config.user_all_accounts == 0){
 console.log("Você está usando " + qtsContas + " contas");
 
 function steamLogin() {
-
+try{
 var qtsContas = account.length;
-
 if(config.user_all_accounts == 0){
     qtsContas = account.length;
 } else {
@@ -129,8 +128,7 @@ if(config.user_all_accounts == 0){
 				return;
 			}
 			console.log(err);
-			process.exit();
-			return;
+			steamLogin()
 		}
 		console.log("Aguarde um momento :)");
 		console.log("Logado com o usuario " + accountParse.steam_credentials.accountName);
@@ -162,5 +160,9 @@ if(config.user_all_accounts == 0){
     console.log("Processo encerrado");
     process.exit();
     return;
+}
+} catch (err){
+    indice++
+	steamLogin()
 }
 }
